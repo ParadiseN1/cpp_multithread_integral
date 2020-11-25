@@ -53,6 +53,7 @@ double tintegral(double(*f)(double x1, double x2),double a, double b,double a1, 
     *res += area;
     mutex.unlock();
     return area;
+    //zzx
 }
 
 double thread_integral(double(*f)(double x1, double x2),double a, double b, double a1, double b1, double dx, int t){
