@@ -32,38 +32,18 @@ double fast_two_sum (double &t, double a, double b) {
     return s;
 }
 
-//double sum_kahan (const dvect_t &X) {
-//    double s=0.0, c=0.0;
-//    for (auto x: X) {
-//        double y = x + c;
-//        s = fast_two_sum (c, s, y);
-//    }
-//    return s;
-//}
-
-
-
-
 double de_zong(double x1, double x2){
     double res = 0.002;
     double sum = 0.0;
     double den = 0.0;
-    //double e;
     double c = 0.0;
     for (int i = -2; i <= 2; ++i){
         for (int j = -2; j <= 2; ++j){
             den = 5 * (i + 2) + j + 3 + pow(x1 - 16 * j, 6) + pow(x2 - 16 * i, 6);
             double y = (1 / den) + c;
             sum = fast_two_sum (c, sum, y);
-
-            //sum += two_sum(e, sum, 1 / den);
-            //c+=e;
-
-            //sum += 1/den;
         }
     }
-    //sum += e;
-
     return pow(res + sum, -1);
 }
 double integral(double(*f)(double x1, double x2),double a, double b,double a1, double b1, double dx, double prev = 0) {
@@ -76,14 +56,6 @@ double integral(double(*f)(double x1, double x2),double a, double b,double a1, d
     return area;
 }
 
-//double __fastcall sum_rump (const dvect_t &X) {
-//    double s=0.0, c=0.0, e;
-//    for (double x: X) {
-//        s = two_sum (e, s, x);
-//        c += e;
-//    }
-//    return s+c;
-//}
 double tintegral(double(*f)(double x1, double x2),double a, double b,double a1, double b1, double dx, double *res, double prev=0) {
     double area = 0;
     std::mutex mutex;
@@ -113,7 +85,6 @@ double tintegral(double(*f)(double x1, double x2),double a, double b,double a1, 
 double thread_integral(double(*f)(double x1, double x2),double a, double b, double a1, double b1, double dx, int t, double prev =0){
     std::thread threads[t];
     double res = 0;
-//    if (prev == 0)
     for (int i = 0; i < t; ++i){
         threads[i] = std::thread(tintegral, f, a + (((b-a) / t) * i), b - (((b-a) / t) * (t - i - 1)), \
                                           a1, b1, dx, &res, prev);
